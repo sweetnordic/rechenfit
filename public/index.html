@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#121213" />
+    <title>Rechenfit – Kopfrechnen üben</title>
+    <meta
+      name="description"
+      content="Übe Kopfrechnen mit frei wählbaren Rechenarten und Schwierigkeitsstufen – ohne Anmeldung, ohne Datenübertragung."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Rechenfit – Kopfrechnen üben" />
+    <meta
+      property="og:description"
+      content="Zehn Kopfrechenaufgaben pro Runde – Addition, Subtraktion, Multiplikation, Division."
+    />
+    <meta name="twitter:card" content="summary" />
+    <link rel="icon" type="image/png" href="./favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <link rel="shortcut icon" href="./favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Rechenfit" />
+    <link rel="manifest" href="./site.webmanifest" />
+    <link rel="stylesheet" href="./assets/css/main.css" />
+    <link rel="stylesheet" href="./assets/css/inputs.css" />
+    <link rel="stylesheet" href="./assets/css/ui.css" />
+    <link rel="stylesheet" href="./assets/css/rechenfit.css" />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Zum Inhalt</a>
+    <header class="site-header">
+      <a href="./" class="site-title">Rechenfit</a>
+      <div class="site-header-actions" id="header-actions">
+        <button id="help-btn" class="btn-icon" type="button" aria-label="Anleitung">?</button>
+        <button id="stats-btn" class="btn-icon" type="button" aria-label="Statistik">📊</button>
+      </div>
+    </header>
+
+    <main id="main" class="rechenfit-main">
+      <h1 class="visually-hidden">Rechenfit – Kopfrechnen üben</h1>
+      <p id="game-status" class="game-status">Wähle Rechenart und Schwierigkeit</p>
+
+      <section id="setup-view" class="rechenfit-card quiz-card">
+        <div class="setup-section">
+          <span class="setup-label">Rechenart</span>
+          <div id="operation-row" class="option-row" role="group" aria-label="Rechenart"></div>
+        </div>
+
+        <div class="setup-section">
+          <span class="setup-label">Zahlenbereich</span>
+          <div id="range-row" class="option-row" role="group" aria-label="Zahlenbereich"></div>
+        </div>
+
+        <div id="column-section" class="setup-section hidden">
+          <span class="setup-label">Spalte (1–10)</span>
+          <div id="column-grid" class="column-grid" role="group" aria-label="Spalte"></div>
+        </div>
+
+        <div class="setup-section">
+          <span class="setup-label">Antwortmodus</span>
+          <div id="answer-mode-row" class="option-row" role="group" aria-label="Antwortmodus">
+            <button type="button" class="option-chip active" data-answer-mode="choice">Auswahl</button>
+            <button type="button" class="option-chip" data-answer-mode="input">Eingabe</button>
+          </div>
+        </div>
+
+        <div class="setup-section">
+          <span class="setup-label">Timer</span>
+          <div id="timer-mode-row" class="option-row" role="group" aria-label="Timer">
+            <button type="button" class="option-chip" data-timed="false">Aus</button>
+            <button type="button" class="option-chip" data-timed="true">An</button>
+          </div>
+        </div>
+
+        <button id="start-btn" class="btn" type="button" style="width: 100%; margin-top: 1rem">
+          Runde starten
+        </button>
+      </section>
+
+      <section id="play-view" class="rechenfit-card quiz-card hidden" aria-live="polite">
+        <span id="mode-badge" class="mode-badge pill-badge">Addition</span>
+
+        <div class="rechenfit-meta game-meta">
+          <span>Richtig: <strong id="live-correct">0</strong></span>
+          <span>Frage: <strong id="question-progress">1/10</strong></span>
+          <span id="live-score-wrap">Punkte: <strong id="live-score">0</strong></span>
+        </div>
+
+        <h2 id="question-text" class="quiz-question">7 + 5 = ?</h2>
+
+        <div id="timer-wrap" class="timer-wrap hidden">
+          <div class="timer-bar" aria-hidden="true">
+            <div id="timer-fill" class="timer-fill"></div>
+          </div>
+          <div class="timer-label">
+            <span>Zeit</span>
+            <strong id="timer-value">10</strong>
+          </div>
+        </div>
+
+        <div id="feedback-banner" class="feedback-banner"></div>
+
+        <div id="options-grid" class="options-grid"></div>
+
+        <div id="input-row" class="input-row hidden">
+          <input
+            id="answer-input"
+            class="answer-input"
+            type="number"
+            inputmode="numeric"
+            placeholder="Antwort"
+          />
+          <button id="submit-btn" class="btn" type="button">Prüfen</button>
+        </div>
+      </section>
+
+      <section id="result-view" class="rechenfit-card quiz-card result-card hidden" aria-live="polite">
+        <h2>Runde beendet</h2>
+        <div id="result-score" class="result-score">8/10</div>
+        <p id="result-details" class="result-details">8 von 10 Aufgaben richtig.</p>
+
+        <div class="result-actions">
+          <button id="restart-btn" class="btn" type="button">Noch einmal spielen</button>
+          <button id="settings-btn" class="btn btn-secondary" type="button">Einstellungen</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>
+        Keine Datenübertragung – Einstellungen, Spielstand und Statistik bleiben in deinem Browser
+        (<code>localStorage</code>).
+      </p>
+      <p>
+        <a href="https://github.com/sweetnordic/rechenfit">Quellcode auf GitHub</a>
+        · Abgeleitet von Denkspiele / Kopfrechnen
+      </p>
+    </footer>
+
+    <div id="help-modal" class="modal-overlay" aria-hidden="true">
+      <div class="modal" role="dialog" aria-labelledby="help-title">
+        <h2 id="help-title">So funktioniert's</h2>
+        <p class="help-hint">Diese Anleitung findest du jederzeit über ?.</p>
+        <p>Übe Kopfrechnen mit 10 Aufgaben pro Runde.</p>
+        <ul>
+          <li>Wähle eine <strong>Rechenart</strong> und einen <strong>Zahlenbereich</strong>.</li>
+          <li>Bei Multiplikation und Division wählst du eine <strong>Spalte</strong> (1–10).</li>
+          <li>Antwort per <strong>Auswahl</strong> (Standard) oder <strong>Eingabe</strong>.</li>
+          <li>Der <strong>Timer</strong> ist optional – mit Timer gibt es Punkte und Zeitbonus.</li>
+        </ul>
+        <div class="modal-actions">
+          <button class="btn" type="button" data-close>Verstanden</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="stats-modal" class="modal-overlay" aria-hidden="true">
+      <div class="modal" role="dialog" aria-labelledby="stats-title">
+        <h2 id="stats-title">Statistik</h2>
+        <div class="stats-grid">
+          <div>
+            <div id="stat-played" class="stat-value">0</div>
+            <div class="stat-label">Runden</div>
+          </div>
+          <div>
+            <div id="stat-accuracy" class="stat-value">0%</div>
+            <div class="stat-label">Trefferquote</div>
+          </div>
+          <div>
+            <div id="stat-perfect" class="stat-value">0</div>
+            <div class="stat-label">Volltreffer</div>
+          </div>
+          <div>
+            <div id="stat-best-round" class="stat-value">0</div>
+            <div class="stat-label">Beste Runde</div>
+          </div>
+        </div>
+        <div class="stats-grid" style="grid-template-columns: 1fr">
+          <div>
+            <div id="stat-best-timed" class="stat-value">0</div>
+            <div class="stat-label">Bestwert (Timer)</div>
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button class="btn" type="button" data-close>Schließen</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script type="module" src="./assets/js/rechenfit.js"></script>
+  </body>
+</html>

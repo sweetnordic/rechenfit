@@ -1,0 +1,125 @@
+.rechenfit-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.5rem 2rem;
+  width: min(640px, 100%);
+  margin: 0 auto;
+  flex: 1;
+}
+
+.setup-section {
+  margin-bottom: 1.25rem;
+}
+
+.setup-section:last-of-type {
+  margin-bottom: 0;
+}
+
+.setup-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.option-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.option-chip {
+  padding: 0.5rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 600;
+  touch-action: manipulation;
+}
+
+.option-chip.active {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: white;
+}
+
+.column-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0.5rem;
+}
+
+.column-btn {
+  padding: 0.65rem 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 700;
+  touch-action: manipulation;
+}
+
+.column-btn.active {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: white;
+}
+
+.setup-section.hidden,
+.input-row.hidden,
+.timer-wrap.hidden {
+  display: none;
+}
+
+.quiz-question {
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  line-height: 1.35;
+  text-align: center;
+  font-weight: 700;
+}
+
+.option-btn {
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.answer-input {
+  padding: 0.85rem 1rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+.feedback-banner {
+  margin-bottom: 0.75rem;
+}
+
+.result-score {
+  font-size: clamp(2.5rem, 8vw, 3.5rem);
+}
+
+.result-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+@media (max-width: 640px) {
+  .result-actions {
+    flex-direction: column;
+  }
+
+  .result-actions .btn {
+    width: 100%;
+  }
+}

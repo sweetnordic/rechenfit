@@ -1,0 +1,44 @@
+/* Native form controls shared by multiple games. */
+
+select {
+  min-height: 2.75rem;
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
+
+select:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.answer-input-row,
+.input-row {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.answer-input {
+  flex: 1;
+  min-width: 0;
+  min-height: 2.75rem;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
+
+.answer-input:focus {
+  border-color: var(--accent);
+}
+
+.answer-input:focus-visible {
+  outline: 2px solid var(--accent-hover);
+  outline-offset: 2px;
+}
